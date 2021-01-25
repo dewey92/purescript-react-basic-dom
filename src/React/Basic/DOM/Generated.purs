@@ -5,14 +5,27 @@
 module React.Basic.DOM.Generated where
 
 import Data.Nullable (Nullable)
+import Data.Symbol (SProxy(..))
 import Effect.Unsafe (unsafePerformEffect)
 import Foreign.Object (Object)
-import Prim.Row (class Union)
+import Prim.Row (class Lacks, class Union)
 import React.Basic (JSX, ReactComponent, Ref, element)
 import React.Basic.DOM.Internal (CSS, unsafeCreateDOMComponent)
 import React.Basic.Events (EventHandler)
+import Record (insert)
 import Unsafe.Coerce (unsafeCoerce)
 import Web.DOM (Node)
+
+type ReactElement props = forall attrs attrs_
+   . Union attrs attrs_ props
+  => Lacks "children" attrs
+  => Record attrs
+  -> Array JSX
+  -> JSX
+
+type ReactElementWithChildren props = forall attrs attrs_
+   . Union attrs attrs_ props
+  => ReactComponent (Record ( "children" :: Array JSX | attrs))
 
 type Props_a =
   ( _aria :: Object String
@@ -156,20 +169,13 @@ type Props_a =
   , wmode :: String
   )
 
-a
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_a
-  => Record attrs
-  -> JSX
-a = element a'
+a :: ReactElement Props_a
+a props c = element a' (insert (SProxy :: SProxy "children") c props)
 
 a_ :: Array JSX -> JSX
-a_ children = a { children }
+a_ children = a {} children
 
-a'
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_a
-  => ReactComponent (Record attrs)
+a' :: ReactElementWithChildren Props_a
 a' = unsafeCoerce _a'
 
 _a'
@@ -4513,17 +4519,20 @@ type Props_div =
 div
   :: forall attrs attrs_
    . Union attrs attrs_ Props_div
+  => Lacks "children" attrs
   => Record attrs
+  -> Array JSX
   -> JSX
-div = element div'
+div props c = element div' (insert (SProxy :: SProxy "children") c props)
+
 
 div_ :: Array JSX -> JSX
-div_ children = div { children }
+div_ children = div {} children
 
 div'
   :: forall attrs attrs_
    . Union attrs attrs_ Props_div
-  => ReactComponent (Record attrs)
+  => ReactComponent (Record ( children :: Array JSX | attrs))
 div' = unsafeCoerce _div'
 
 _div'
@@ -6063,20 +6072,13 @@ type Props_h1 =
   , wmode :: String
   )
 
-h1
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_h1
-  => Record attrs
-  -> JSX
-h1 = element h1'
+h1 :: ReactElement Props_h1
+h1 props c = element h1' (insert (SProxy :: SProxy "children") c props)
 
 h1_ :: Array JSX -> JSX
-h1_ children = h1 { children }
+h1_ children = h1 {} children
 
-h1'
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_h1
-  => ReactComponent (Record attrs)
+h1' :: ReactElementWithChildren Props_h1
 h1' = unsafeCoerce _h1'
 
 _h1'
@@ -6217,20 +6219,13 @@ type Props_h2 =
   , wmode :: String
   )
 
-h2
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_h2
-  => Record attrs
-  -> JSX
-h2 = element h2'
+h2 :: ReactElement Props_h2
+h2 props c = element h2' (insert (SProxy :: SProxy "children") c props)
 
 h2_ :: Array JSX -> JSX
-h2_ children = h2 { children }
+h2_ children = h2 {} children
 
-h2'
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_h2
-  => ReactComponent (Record attrs)
+h2' :: ReactElementWithChildren Props_h2
 h2' = unsafeCoerce _h2'
 
 _h2'
@@ -7142,20 +7137,13 @@ type Props_header =
   , wmode :: String
   )
 
-header
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_header
-  => Record attrs
-  -> JSX
-header = element header'
+header :: ReactElement Props_header
+header props c = element header' (insert (SProxy :: SProxy "children") c props)
 
 header_ :: Array JSX -> JSX
-header_ children = header { children }
+header_ children = header {} children
 
-header'
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_header
-  => ReactComponent (Record attrs)
+header' :: ReactElementWithChildren Props_header
 header' = unsafeCoerce _header'
 
 _header'
@@ -10737,20 +10725,13 @@ type Props_nav =
   , wmode :: String
   )
 
-nav
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_nav
-  => Record attrs
-  -> JSX
-nav = element nav'
+nav :: ReactElement Props_nav
+nav props c = element nav' (insert (SProxy :: SProxy "children") c props)
 
 nav_ :: Array JSX -> JSX
-nav_ children = nav { children }
+nav_ children = nav {} children
 
-nav'
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_nav
-  => ReactComponent (Record attrs)
+nav' :: ReactElementWithChildren Props_nav
 nav' = unsafeCoerce _nav'
 
 _nav'
@@ -11832,20 +11813,13 @@ type Props_p =
   , wmode :: String
   )
 
-p
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_p
-  => Record attrs
-  -> JSX
-p = element p'
+p :: ReactElement Props_p
+p props c = element p' (insert (SProxy :: SProxy "children") c props)
 
 p_ :: Array JSX -> JSX
-p_ children = p { children }
+p_ children = p {} children
 
-p'
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_p
-  => ReactComponent (Record attrs)
+p' :: ReactElementWithChildren Props_p
 p' = unsafeCoerce _p'
 
 _p'
@@ -13997,20 +13971,13 @@ type Props_section =
   , wmode :: String
   )
 
-section
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_section
-  => Record attrs
-  -> JSX
-section = element section'
+section :: ReactElement Props_section
+section props c = element section' (insert (SProxy :: SProxy "children") c props)
 
 section_ :: Array JSX -> JSX
-section_ children = section { children }
+section_ children = section {} children
 
-section'
-  :: forall attrs attrs_
-   . Union attrs attrs_ Props_section
-  => ReactComponent (Record attrs)
+section' :: ReactElementWithChildren Props_section
 section' = unsafeCoerce _section'
 
 _section'
